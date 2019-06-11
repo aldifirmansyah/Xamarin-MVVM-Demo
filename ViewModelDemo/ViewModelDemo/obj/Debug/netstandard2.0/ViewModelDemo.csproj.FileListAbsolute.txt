@@ -1,0 +1,13 @@
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\bin\Debug\netstandard2.0\ViewModelDemo.deps.json
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\bin\Debug\netstandard2.0\ViewModelDemo.dll
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\ViewModelDemo.csprojAssemblyReference.cache
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\Views\ContactDetailPage.xaml.g.cs
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\Views\ContactsPage.xaml.g.cs
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\ViewModelDemo.csproj.CoreCompileInputs.cache
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\ViewModelDemo.AssemblyInfoInputs.cache
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\ViewModelDemo.AssemblyInfo.cs
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\bin\Debug\netstandard2.0\ViewModelDemo.pdb
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\ViewModelDemo.dll
+C:\Users\aldif\source\repos\ViewModelDemo\ViewModelDemo\ViewModelDemo\obj\Debug\netstandard2.0\ViewModelDemo.pdb
