@@ -18,29 +18,26 @@ namespace ViewModelDemo
     {
         public ContactsPage()
         {
-            BindingContext = new ContactsViewModel(new PageService(), DependencyService.Get<ISQLiteDb>().GetConnection());
+            ViewModel = new ContactsViewModel(new PageService(), DependencyService.Get<ISQLiteDb>().GetConnection());
 
             InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
+            ViewModel.LoadDataCommand.Execute(null);
             base.OnAppearing();
-        }        
-
-        async void OnAddContact(object sender, System.EventArgs e)
-        {
-            await (BindingContext as ContactsViewModel).AddContact();
         }
 
-        async void OnDeleteContact(object sender, System.EventArgs e)
+        public ContactsViewModel ViewModel
         {
-            await (BindingContext as ContactsViewModel).DeleteContact((sender as MenuItem).CommandParameter as ContactViewModel);
+            get { return BindingContext as ContactsViewModel; }
+            set { BindingContext = value; }
         }
 
-        async void OnContactSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        private void ContactsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            await (BindingContext as ContactsViewModel).SelectContact(e.SelectedItem as ContactViewModel);
+            ViewModel.SelectContactCommand.Execute(e.SelectedItem);
         }
     }
 }

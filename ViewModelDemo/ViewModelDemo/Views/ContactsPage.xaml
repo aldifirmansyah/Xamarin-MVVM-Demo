@@ -1,22 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage Title="Contacts"
+<ContentPage x:Name="page"
+             Title="Contacts"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ViewModelDemo.ContactsPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="OnAddContact"/>
+        <ToolbarItem Text="Add" Command="{Binding AddContactCommand}"/>
     </ContentPage.ToolbarItems>
     <ListView x:Name="contactsListView"
               SelectedItem="{Binding SelectedContact, Mode=TwoWay}"
               ItemsSource="{Binding Contacts}"
-              ItemSelected="OnContactSelected">
+              ItemSelected="ContactsListView_ItemSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <TextCell Text="{Binding FullName}" TextColor="{Binding TextColor}">
                     <TextCell.ContextActions>
                         <MenuItem Text="Delete"
                                   IsDestructive="True"
-                                  Clicked="OnDeleteContact"
+                                  Command="{Binding Source={x:Reference page}, Path=ViewModel.DeleteContactCommand}"
                                   CommandParameter="{Binding .}"/>
                     </TextCell.ContextActions>
                 </TextCell>

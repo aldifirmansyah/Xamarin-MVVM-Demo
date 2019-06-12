@@ -16,10 +16,5 @@ namespace ViewModelDemo
 
             InitializeComponent ();
 		}
-
-        async void OnSave(object sender, System.EventArgs e)
-        {
-            await (BindingContext as ContactDetailViewModel).Save();
-        }
 	}
 }

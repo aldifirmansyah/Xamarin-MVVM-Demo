@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ViewModelDemo.Models;
 using ViewModelDemo.Persistence;
 using Xamarin.Forms;
@@ -9,20 +10,37 @@ namespace ViewModelDemo.ViewModels
 {
     public class ContactsViewModel : BaseViewModel
     {
-        public ObservableCollection<ContactViewModel> Contacts { get; private set; } = new ObservableCollection<ContactViewModel>();
-        
         private SQLiteAsyncConnection _connection;
         private readonly IPageService _pageService;
+        private ContactViewModel _selectedContact;
+        private bool _isDataLoaded;
+
+        public ContactViewModel SelectedContact
+        {
+            get { return _selectedContact; }
+            set { SetValue(ref _selectedContact, value); }
+        }
+        public ObservableCollection<ContactViewModel> Contacts { get; private set; } =
+            new ObservableCollection<ContactViewModel>();
+        
+        public ICommand AddContactCommand { get; private set; }
+        public ICommand LoadDataCommand { get; private set; }
+        public ICommand SelectContactCommand { get; private set; }
+        public ICommand DeleteContactCommand { get; private set; }
 
         public ContactsViewModel(IPageService pageService, SQLiteAsyncConnection connection)
         {
             _pageService = pageService;
             _connection = connection;
 
-            LoadData();
+            AddContactCommand = new Command(async() => await AddContact());
+            LoadDataCommand = new Command (async() => await LoadData());
+            SelectContactCommand = new Command<ContactViewModel>(async c => await SelectContact(c));
+            DeleteContactCommand = new Command<ContactViewModel>(async c => await DeleteContact(c));
+
         }
 
-        public async Task AddContact()
+        private async Task AddContact()
         {
             var contactDetailViewModel = new ContactDetailViewModel (new ContactViewModel(), _pageService, _connection);
             contactDetailViewModel.ContactAdded += (source, contact) =>
@@ -33,7 +51,7 @@ namespace ViewModelDemo.ViewModels
             await _pageService.PushAsync(new ContactDetailPage(contactDetailViewModel));
         }
 
-        public async Task SelectContact(ContactViewModel selectedContact)
+        private async Task SelectContact(ContactViewModel selectedContact)
         {
             if (selectedContact == null)
                 return;
@@ -53,7 +71,7 @@ namespace ViewModelDemo.ViewModels
             await _pageService.PushAsync(new ContactDetailPage(contactDetailViewModel));
         }
 
-        public async Task DeleteContact(ContactViewModel contactViewModel)
+        private async Task DeleteContact(ContactViewModel contactViewModel)
         {
             if (await _pageService.DisplayAlert("Warning", $"Are you sure want to delete {contactViewModel.FullName}?", "Yes", "No"))
             {
@@ -69,19 +87,17 @@ namespace ViewModelDemo.ViewModels
 
         private async Task LoadData()
         {
+            if (_isDataLoaded)
+                return;
+
+            _isDataLoaded = true;
+
             await _connection.CreateTableAsync<Contact>();
 
             var contacts = await _connection.Table<Contact>().ToListAsync();
 
             foreach (Contact c in contacts)
                 Contacts.Add(new ContactViewModel(c));
-        }
-
-        private ContactViewModel _selectedContact;
-        public ContactViewModel SelectedContact
-        {
-            get { return _selectedContact; }
-            set { SetValue(ref _selectedContact, value); }
         }
     }
 }
